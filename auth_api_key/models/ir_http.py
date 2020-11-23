@@ -19,9 +19,11 @@ class IrHttp(models.AbstractModel):
     def _auth_method_api_key(cls):
         headers = request.httprequest.environ
         api_key = headers.get("HTTP_API_KEY")
+        print("REQUEST HEADER", headers, api_key)
         if api_key:
             request.uid = 1
             auth_api_key = request.env["auth.api.key"]._retrieve_api_key(api_key)
+            print("Auth API KEY OBJECT", auth_api_key)
             if auth_api_key:
                 # reset _env on the request since we change the uid...
                 # the next call to env will instantiate an new
